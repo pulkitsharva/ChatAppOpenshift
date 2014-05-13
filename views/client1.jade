@@ -33,5 +33,6 @@ html
 				});
 				
 				client.subscribe('/channel', function(message) {
+				alert("Message:"+message);
 				$('#messages').append('<p>'+message.text+'</p>');
 				})
