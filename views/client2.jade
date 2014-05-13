@@ -15,7 +15,7 @@ html
 				var something = function() {
 				var $chat = $('#chat');
 				console.log('something:'+$chat.val())
-				var url = 'http://process.env.OPENSHIFT_NODEJS_IP:process.env.OPENSHIFT_NODEJS_PORT/message';
+				var url = 'http://127.5.116.129:8080/message';
 				var message = {message: 'Client 2: ' + $chat.val()};
 				var dataType = 'json';
 				$.ajax({
