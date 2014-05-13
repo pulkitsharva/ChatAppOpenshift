@@ -23,9 +23,16 @@ app.use('/', routes);
 
 
 app.post('/message', function(req, res) {
-  bayeux.getClient().publish('/channel', {text: req.body.message});
-  console.log("Posting message:"+req.body.message);
-  res.send(200);
+	try
+	{
+	console.log("Here:"+bayeux.getClient().publish('/channel', {text: req.body.message}));
+	console.log("Posting message:"+req.body.message);
+	res.send(200);
+	}
+	catch(e)
+	{
+		console.log("error"+e);
+	}
 });
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
