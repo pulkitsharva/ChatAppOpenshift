@@ -15,7 +15,7 @@ html
 				var something = function() {
 				var $chat = $('#chat');
 				console.log('something:'+$chat.val())
-				var url = 'http://127.5.116.129:8123/message';
+				var url = '/message';
 				var message = {message: 'Client 1: ' + $chat.val()};
 				var dataType = 'json';
 				$.ajax({
@@ -26,7 +26,7 @@ html
 				});
 				$chat.val('');
 				}
-				var WebSocket = require('ws'), ws = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
+				var WebSocket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
 				ws.on('open', function() {
 				ws.send('something');
 				});
