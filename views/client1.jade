@@ -23,8 +23,28 @@ html
 				type: 'POST',
 				'url': url,
 				'data': message,
-				'dataType': dataType
-				});
+				'dataType': dataType,
+				statusCode : {
+					404 : function() {
+					alert("Page not found.");
+					},
+					400 : function() {
+					alert("Server understood the request but request content was invalid.");
+					},
+					401 : function() {
+					alert("Unauthorised access.");
+					},
+					403 : function() {
+					alert("Forbidden resouce can't be accessed");
+					},
+					500 : function() {
+					alert("Internal Server Error.");
+					},
+					503 : function() {
+					alert("Service Unavailable");
+					}
+				}
+			});
 				$chat.val('');
 				}
 				var WebSocket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
