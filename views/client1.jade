@@ -15,7 +15,7 @@ html
 				var something = function() {
 				var $chat = $('#chat');
 				console.log('something:'+$chat.val())
-				var url = '/message';
+				var url = 'message';
 				var message = {message: 'Client 1: ' + $chat.val()};
 				var dataType = 'json';
 				$.ajax({
@@ -27,8 +27,8 @@ html
 				$chat.val('');
 				}
 				var WebSocket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
-				ws.on('open', function() {
-				ws.send('something');
+				WebSocket.on('open', function() {
+				WebSocket.send('something');
 				});
 				var client = new Faye.Client('/faye',{
 				timeout: 20
