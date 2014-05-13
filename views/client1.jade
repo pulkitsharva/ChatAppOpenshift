@@ -13,6 +13,7 @@ html
 			script(src='/faye/client.js')
 			script.
 				var something = function() {
+				
 				var $chat = $('#chat');
 				console.log('something:'+$chat.val())
 				var url = 'http://chat-yummyfoods.rhcloud.com/message';
@@ -27,9 +28,6 @@ html
 				$chat.val('');
 				}
 				var WebSocket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
-				WebSocket.on('open', function() {
-				WebSocket.send('something');
-				});
 				var client = new Faye.Client('/faye',{
 				timeout: 20
 				});
