@@ -1,29 +1,68 @@
-var http = require('http');
+var path = require('path');
+var http = require('http'),    express = require('express'),    faye = require('faye');
+var bodyParser = require('body-parser');
+var bayeux = new faye.NodeAdapter({
+  mount:    '/faye',
+  timeout:  45
+});
+var app = express();
 
-//Get the environment variables we need.
-var ipaddr  = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
-var port    = process.env.OPENSHIFT_NODEJS_PORT || 3333;
+var server = http.createServer(app);
 
-http.createServer(function (req, res) 
-{
-	var addr = "unknown";
-	var out = "";
-	if (req.headers.hasOwnProperty('x-forwarded-for')) {
-		addr = req.headers['x-forwarded-for'];
-	} else if (req.headers.hasOwnProperty('remote-addr')){
-		addr = req.headers['remote-addr'];
-	}
+bayeux.attach(server);
 
-	if (req.headers.hasOwnProperty('accept')) {
-		if (req.headers['accept'].toLowerCase() == "application/json") {
-			  res.writeHead(200, {'Content-Type': 'application/json'});
-			  res.end(JSON.stringify({'ip': addr}, null, 4) + "\n");			
-			  return ;
-		}
-	}
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.write("Welcome to Node.js on OpenShift!\n\n");
-  res.end("Your IP address seems to be " + addr + "\n");
-}).listen(port, ipaddr);
-console.log("Server running at http://" + ipaddr + ":" + port + "/");
+app.use(app.router);
+
+// Add callback handler for home (/) route
+app.get('/', function(req, res) {
+  res.render('index', { title: 'Express' });
+});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+app.post('/message', function(req, res) {
+  bayeux.getClient().publish('/channel', {text: req.body.message});
+  res.send(200);
+});
+/// catch 404 and forwarding to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+/// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
+
+server.listen(8123);
+console.log("Server up and listening on port 8123")
+
