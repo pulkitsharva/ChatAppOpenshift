@@ -56,5 +56,5 @@ app.use(function(err, req, res, next) {
     });
 });
 
-server.listen(8123);
+server.listen(process.env.OPENSHIFT_NODEJS_PORT || 80);
 console.log("Server up and listening on port 8123")
