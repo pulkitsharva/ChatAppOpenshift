@@ -6,7 +6,7 @@ var bayeux = new faye.NodeAdapter({
   timeout:  45
 });
 var app = express();
-
+var routes = require('./routes/index');
 var server = http.createServer(app);
 
 bayeux.attach(server);
@@ -15,17 +15,10 @@ bayeux.attach(server);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(app.router);
-
-// Add callback handler for home (/) route
-app.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
-});
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/', routes);
 
 
 app.post('/message', function(req, res) {
@@ -65,4 +58,3 @@ app.use(function(err, req, res, next) {
 
 server.listen(8123);
 console.log("Server up and listening on port 8123")
-
