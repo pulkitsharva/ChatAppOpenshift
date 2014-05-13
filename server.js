@@ -8,7 +8,7 @@ var bayeux = new faye.NodeAdapter({
 var app = express();
 var routes = require('./routes/index');
 var server = http.createServer(app);
-
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8123 ;
 bayeux.attach(server);
 
 // view engine setup
@@ -56,5 +56,5 @@ app.use(function(err, req, res, next) {
     });
 });
 
-server.listen(process.env.OPENSHIFT_NODEJS_PORT || 80);
-console.log("Server up and listening on port 8123")
+server.listen(port);
+console.log("Server up and listening on port "+port)
