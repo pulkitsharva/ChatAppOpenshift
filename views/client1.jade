@@ -26,10 +26,14 @@ html
 				});
 				$chat.val('');
 				}
+				var WebSocket = require('ws'), ws = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
+				ws.on('open', function() {
+				ws.send('something');
+				});
 				var client = new Faye.Client('/faye',{
 				timeout: 20
 				});
-				client.connect();
+				
 				client.subscribe('/channel', function(message) {
 				$('#messages').append('<p>'+message.text+'</p>');
 				})
