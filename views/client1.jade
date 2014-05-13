@@ -32,7 +32,7 @@ html
 				timeout: 20
 				});
 				
-				client.subscribe('/channel', function(message) {
+				client.subscribe('http://chat-yummyfoods.rhcloud.com/channel', function(message) {
 				console.log("Message:"+message.text);
 				$('#messages').append('<p>'+message.text+'</p>');
 				})
