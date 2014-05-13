@@ -15,7 +15,7 @@ html
 				var something = function() {
 				var $chat = $('#chat');
 				console.log('something:'+$chat.val())
-				var url = 'message';
+				var url = 'http://chat-yummyfoods.rhcloud.com/message';
 				var message = {message: 'Client 1: ' + $chat.val()};
 				var dataType = 'json';
 				$.ajax({
