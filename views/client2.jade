@@ -6,32 +6,33 @@ html
 				#messages { height: 300px; width: 300px; overflow: hidden; border: #ccc solid 1px;}
 				section { margin-left: 20px; }
 			section
-			h1 Chat Client #2
-			div#messages
-			textarea#chat(rows='2', cols='35')
-			button(onclick='something()') Chat
-			script(src='http://chat-yummyfoods.rhcloud.com/faye/client.js')
-			script.
-				var something = function() {
-				var $chat = $('#chat');
-				console.log('something:'+$chat.val())
-				var url = 'http://chat-yummyfoods.rhcloud.com/message';
-				var message = {message: 'Client 2: ' + $chat.val()};
-				var dataType = 'json';
-				$.ajax({
-				type: 'POST',
-				'url': url,
-				'data': message,
-				'dataType': dataType
-				});
-				$chat.val('');
-				}
-				var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com:8000/faye',{
-					timeout: 20
-				});
-				var Socket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000' );
-				client.disable(Socket);
-				var subscription=client.subscribe('/channel', function(message) {
-				console.log("Message coming from client1:"+message.text);
-				$('#messages').append('<p>'+message.text+'</p>');
-				});
+			center
+				h1 Chat Client #2
+				div#messages
+				textarea#chat(rows='2', cols='35')
+				button(onclick='something()') Chat
+				script(src='http://chat-yummyfoods.rhcloud.com/faye/client.js')
+				script.
+					var something = function() {
+					var $chat = $('#chat');
+					console.log('something:'+$chat.val())
+					var url = 'http://chat-yummyfoods.rhcloud.com/message';
+					var message = {message: 'Client 2: ' + $chat.val()};
+					var dataType = 'json';
+					$.ajax({
+					type: 'POST',
+					'url': url,
+					'data': message,
+					'dataType': dataType
+					});
+					$chat.val('');
+					}
+					var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com:8000/faye',{
+						timeout: 20
+					});
+					var Socket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000' );
+					client.disable(Socket);
+					var subscription=client.subscribe('/channel', function(message) {
+					console.log("Message coming from client1:"+message.text);
+					$('#messages').append('<p>'+message.text+'</p>');
+					});

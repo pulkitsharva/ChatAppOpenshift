@@ -6,14 +6,16 @@ html
 				#messages { height: 300px; width: 300px; overflow: hidden; border: #ccc solid 1px;}
 				section { margin-left: 20px; }
 			section
-			h1 Chat Viewer #1
-			div#messages
-			
-			script(src='/faye/client.js')
-			script.
-				var client = new Faye.Client('/faye',{
-				timeout: 20
-				});
-				client.subscribe('/channel', function(message) {
-				$('#messages').append('<p>'+message.text+'</p>');
-				})
+			center
+				h1 Chat Client #1
+				div#messages
+				script(src='http://chat-yummyfoods.rhcloud.com/faye/client.js')
+					var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com:8000/faye',{
+						timeout: 20
+					});
+					var Socket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000' );
+					client.disable(Socket);
+					var subscription=client.subscribe('/channel', function(message) {
+					console.log("Message coming from client2:"+message.text);
+					$('#messages').append('<p>'+message.text+'</p>');
+					});
