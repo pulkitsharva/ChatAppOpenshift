@@ -30,15 +30,8 @@ html
 				});
 				var Socket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000' );
 				client.disable(Socket);
-				console.log("client:"+client);
-				
 				var subscription=client.subscribe('/channel', function(message) {
-				console.log("Message:"+message.text);
+				console.log("Message coming from client1:"+message.text);
 				$('#messages').append('<p>'+message.text+'</p>');
-				});
-				subscription.then(function()
-				{
-					console.log('subscribe is active');
-					alert('subscribe is active');
 				});
 				}
