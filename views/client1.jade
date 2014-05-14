@@ -26,7 +26,7 @@ html
 				'dataType': dataType
 				});
 				$chat.val('');
-				var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com/faye',{
+				var client = new Faye.Client('/faye',{
 				endpoints:
 				{
 					websocket:'http:ws.chat-yummyfoods.rhcloud.com'
@@ -47,6 +47,6 @@ html
 					alert('subscribe is active');
 				});
 				
-				}
+				
 				
 				
