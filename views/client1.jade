@@ -27,9 +27,13 @@ html
 				});
 				$chat.val('');
 				var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com/faye',{
+				endpoints:
+				{
+					websocket:'http:ws.chat-yummyfoods.rhcloud.com'
+				}
 				timeout: 20
 				});
-				webSocket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
+				client.disable('websocket');
 				
 				console.log("client:"+client);
 				
