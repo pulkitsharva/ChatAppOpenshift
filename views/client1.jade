@@ -27,16 +27,20 @@ html
 				});
 				$chat.val('');
 				}
-				var WebSocket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
+				
 				var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com/faye',{
 				timeout: 20
 				});
 				
-				client.subscribe('/channel', function(message) {
-				subscribe.then(function()
-				{
-					alert('subscribe is active');
-				});
+				console.log("client:"+client);
+				
+				var subscription=client.subscribe('/channel', function(message) {
 				console.log("Message:"+message.text);
 				$('#messages').append('<p>'+message.text+'</p>');
 				});
+				subscription.then(function()
+				{
+					console.log('subscribe is active');
+					alert('subscribe is active');
+				});
+				
