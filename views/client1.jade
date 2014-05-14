@@ -26,15 +26,14 @@ html
 				'dataType': dataType
 				});
 				$chat.val('');
+				}
 				var client = new Faye.Client('/faye',{
 				endpoints:
 				{
-					websocket:'http:ws.chat-yummyfoods.rhcloud.com'
+					websocket:'ws://chat-yummyfoods.rhcloud.com:8000'
 				}
 				,timeout: 20
 				});
-				client.disable('websocket');
-				
 				console.log("client:"+client);
 				
 				var subscription=client.subscribe('/channel', function(message) {
@@ -46,7 +45,3 @@ html
 					console.log('subscribe is active');
 					alert('subscribe is active');
 				});
-				}
-				
-				
-				
