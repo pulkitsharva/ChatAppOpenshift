@@ -25,6 +25,7 @@ html
 				'dataType': dataType
 				});
 				$chat.val('');
+				}
 				var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com:8000/faye',{
 					timeout: 20
 				});
@@ -34,4 +35,3 @@ html
 				console.log("Message coming from client1:"+message.text);
 				$('#messages').append('<p>'+message.text+'</p>');
 				});
-				}

@@ -28,10 +28,10 @@ html
 				var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com:8000/faye',{
 					timeout: 20
 				});
+				}
 				var Socket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000' );
 				client.disable(Socket);
 				var subscription=client.subscribe('/channel', function(message) {
 				console.log("Message coming from client2:"+message.text);
 				$('#messages').append('<p>'+message.text+'</p>');
 				});
-				}
