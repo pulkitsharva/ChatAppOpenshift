@@ -25,8 +25,13 @@ app.use('/', routes);
 app.post('/message', function(req, res) {
 	try
 	{
-	bayeux.getClient().publish('/channel', 
+	var publication=bayeux.getClient().publish('/channel', 
 	{text: req.body.message});
+	publication.then(function(){
+		console.log("Message recieved by server");
+	},function(error){
+		console.log("eror coming up:"+error);
+	});
 	console.log("Posting message:"+req.body.message);
 	res.send(200);
 	}
