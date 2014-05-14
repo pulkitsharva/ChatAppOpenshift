@@ -25,7 +25,7 @@ html
 				'dataType': dataType
 				});
 				$chat.val('');
-				var client = new Faye.Client('/faye',{
+				var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com:8000/faye',{
 					timeout: 20
 				});
 				var Socket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000' );
