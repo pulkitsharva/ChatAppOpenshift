@@ -30,6 +30,7 @@ html
 					timeout: 20
 				});
 				var Socket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000' );
+				client.disable(Socket);
 				console.log("client:"+client);
 				var subscription=client.subscribe('/channel', function(message) {
 				console.log("Message:"+message.text);
