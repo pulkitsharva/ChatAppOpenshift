@@ -28,11 +28,15 @@ html
 				$chat.val('');
 				}
 				var WebSocket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
-				var client = new Faye.Client('/faye',{
+				var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com/faye',{
 				timeout: 20
 				});
 				
-				client.subscribe('http://chat-yummyfoods.rhcloud.com/channel', function(message) {
+				client.subscribe('/channel', function(message) {
+				subscribe.then(function()
+				{
+					alert('subscribe is active');
+				});
 				console.log("Message:"+message.text);
 				$('#messages').append('<p>'+message.text+'</p>');
-				})
+				});

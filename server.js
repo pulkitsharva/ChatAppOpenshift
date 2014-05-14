@@ -25,7 +25,8 @@ app.use('/', routes);
 app.post('/message', function(req, res) {
 	try
 	{
-	console.log("Here:"+bayeux.getClient().publish('http://chat-yummyfoods.rhcloud.com/channel', {text: req.body.message}));
+	bayeux.getClient().publish('/channel', 
+	{text: req.body.message});
 	console.log("Posting message:"+req.body.message);
 	res.send(200);
 	}
