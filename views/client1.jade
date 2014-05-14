@@ -31,6 +31,7 @@ html
 				var client = new Faye.Client('http://chat-yummyfoods.rhcloud.com/faye',{
 				timeout: 20
 				});
+				var WebSocket = new WebSocket('ws://chat-yummyfoods.rhcloud.com:8000');
 				
 				console.log("client:"+client);
 				
